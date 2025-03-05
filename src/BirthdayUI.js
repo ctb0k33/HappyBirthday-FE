@@ -143,7 +143,7 @@ const BirthdayUI = () => {
       });
 
       const response = await axios.post(
-        "http://localhost:9000",
+        "https://happy-birthday-be.vercel.app",
         {
           message: messageToSend,
           isPublic: isPublic,
