@@ -66,7 +66,7 @@ const BirthdayUI = () => {
       });
       return;
     }
-    const contractAddress = "0x2e16a8aD6A73ece9Ee5c6307E34fa55074808F99";
+    const contractAddress = "0x7389EFe05997F4999Edb48B8cd9EA0C3B8E88590";
 
     if (isDonating && isWalletConnected) {
       try {
@@ -105,7 +105,7 @@ const BirthdayUI = () => {
           title: "Birthday wish sent!",
           text: "Your wish has been recorded on the blockchain.",
           html: `
-          <a href="https://testnet.bscscan.com/tx/${tx.hash}" 
+          <a href="https://bscscan.com/tx/${tx.hash}" 
              target="_blank" 
              class="inline-flex items-center text-purple-500 hover:text-purple-600">
               <span>View on Scan</span>
@@ -170,7 +170,7 @@ const BirthdayUI = () => {
         title: "Birthday wish sent!",
         text: "Your wish has been recorded on the blockchain.",
         html: `
-        <a href="https://testnet.bscscan.com/tx/${txHash}" 
+        <a href="https://bscscan.com/tx/${txHash}" 
            target="_blank" 
            class="inline-flex items-center text-purple-500 hover:text-purple-600">
             <span>View on Scan</span>
@@ -197,9 +197,8 @@ const BirthdayUI = () => {
           method: "eth_requestAccounts",
         });
         // BNB Smart Chain Mainnet parameters
-        // const bnbChainId = "0x38"; // Chain ID for BNB Smart Chain Mainnet (56 in hex)
+        const bnbChainId = "0x38"; // Chain ID for BNB Smart Chain Mainnet (56 in hex)
 
-        const bnbChainId = "0x61"; // Chain ID for BNB Smart Chain Testnet (97 in hex)
 
         // Request wallet to switch to BNB Smart Chain
         try {
@@ -614,7 +613,7 @@ const BirthdayUI = () => {
               className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center"
               onClick={() =>
                 window.open(
-                  "https://testnet.bscscan.com/address/0x2e16a8ad6a73ece9ee5c6307e34fa55074808f99",
+                  "https://bscscan.com/address/0x7389efe05997f4999edb48b8cd9ea0c3b8e88590",
                   "_blank"
                 )
               }
