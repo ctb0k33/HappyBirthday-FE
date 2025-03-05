@@ -66,7 +66,7 @@ const BirthdayUI = () => {
       });
       return;
     }
-    const contractAddress = "0x7389EFe05997F4999Edb48B8cd9EA0C3B8E88590";
+    const contractAddress = "0x81e9A5040759193DA699254848D246950D03751C";
 
     if (isDonating && isWalletConnected) {
       try {
