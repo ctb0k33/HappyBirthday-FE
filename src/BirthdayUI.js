@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import "./App.css";
 import axios from "axios";
 
+
 function encryptMessageJS(message, key) {
   //   // Convert message and key to byte arrays
   const messageBytes = new TextEncoder().encode(message);
@@ -141,23 +142,27 @@ const BirthdayUI = () => {
         },
       });
 
-      const provider = new ethers.providers.JsonRpcProvider(
-        'https://bsc-testnet-rpc.publicnode.com',
+      const response = await axios.post(
+        "http://localhost:9000",
+        {
+          message: messageToSend,
+          isPublic: isPublic,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      const privateKey = process.env.REACT_APP_PRIVATE_KEY;
-      const wallet = new Wallet(privateKey, provider);
-      const birthdayContract = new ethers.Contract(
-        '0x2e16a8aD6A73ece9Ee5c6307E34fa55074808F99',
-        ABI,
-        wallet,
-      );
-  
-      const tx = await birthdayContract.sendWishes(messageToSend, {
-        value: ethers.utils.parseEther('0'),
-      });
-
-      const txHash = tx.hash;
+      if (response.status !== 201) {
+        Swal.fire({
+          icon: "error",
+          title: "Transaction failed",
+        });
+        return;
+      }
+      const txHash = response.data;
 
       // Show success message
       Swal.fire({
