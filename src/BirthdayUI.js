@@ -613,7 +613,7 @@ const BirthdayUI = () => {
               className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center"
               onClick={() =>
                 window.open(
-                  "https://bscscan.com/address/0x7389efe05997f4999edb48b8cd9ea0c3b8e88590",
+                  "https://bscscan.com/address/0x81e9A5040759193DA699254848D246950D03751C",
                   "_blank"
                 )
               }
