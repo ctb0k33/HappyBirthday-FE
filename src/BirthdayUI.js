@@ -30,7 +30,6 @@ function buildingMessage(name, wish, privateKey) {
   let message = `From ${name}: ${wish}`;
   let finalMessage;
   // Encrypt the message with the private key
-  console.log(privateKey);
   if (privateKey !== "") {
     finalMessage = encryptMessageJS(message, privateKey);
   } else {
@@ -52,7 +51,6 @@ const BirthdayUI = () => {
   const [secretKey, setSecretKey] = useState("");
 
   const sendWishes = async () => {
-    console.log(buildingMessage(senderName, wish, secretKey));
     if (senderName === "" || wish === "") {
       Swal.fire({
         icon: "error",
@@ -143,27 +141,23 @@ const BirthdayUI = () => {
         },
       });
 
-      const response = await axios.post(
-        "http://localhost:9000",
-        {
-          message: messageToSend,
-          isPublic: isPublic,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const provider = new ethers.providers.JsonRpcProvider(
+        'https://bsc-testnet-rpc.publicnode.com',
       );
 
-      if (response.status !== 201) {
-        Swal.fire({
-          icon: "error",
-          title: "Transaction failed",
-        });
-        return;
-      }
-      const txHash = response.data;
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY;
+      const wallet = new Wallet(privateKey, provider);
+      const birthdayContract = new ethers.Contract(
+        '0x2e16a8aD6A73ece9Ee5c6307E34fa55074808F99',
+        ABI,
+        wallet,
+      );
+  
+      const tx = await birthdayContract.sendWishes(messageToSend, {
+        value: ethers.utils.parseEther('0'),
+      });
+
+      const txHash = tx.hash;
 
       // Show success message
       Swal.fire({
@@ -208,7 +202,6 @@ const BirthdayUI = () => {
             method: "wallet_switchEthereumChain",
             params: [{ chainId: bnbChainId }],
           });
-          console.log("Successfully switched to BNB Smart Chain");
         } catch (switchError) {
           // This error code indicates that the chain has not been added to MetaMask
           if (switchError.code === 4902) {
